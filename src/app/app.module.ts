@@ -19,6 +19,7 @@ import { NgxGoogleAnalyticsModule } from 'ngx-google-analytics';
     BrowserModule,
     HttpClientModule,
     ReactiveFormsModule,
+    NgxGoogleAnalyticsModule.forRoot('G-D56D422YXJ'),
     RouterModule.forRoot([
       { path: '', component: ProductListComponent },
       { path: 'products/:productId', component: ProductDetailsComponent },
