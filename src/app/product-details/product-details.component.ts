@@ -30,7 +30,7 @@ export class ProductDetailsComponent implements OnInit {
 
   addToCart(product: Product) {
     this.cartService.addToCart(product);
-    this.$gaService.event('product_add_to_cart', 'product_details', product.name);
+    this.$gaService.gtag('product_add_to_cart', 'product_details', 'Product name', product.name);
     window.alert('Your product has been added to the cart!');
   }
 }

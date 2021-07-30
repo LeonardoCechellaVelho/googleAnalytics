@@ -24,10 +24,10 @@ export class CartComponent {
 
   onSubmit(): void {
     this.items.forEach(element => {
-      this.$gaService.event('product_bought', 'cart', element.name);
+      this.$gaService.gtag('product_bought', 'cart', 'Product Bought', element.name);
       this.valorTotal = this.valorTotal + element.price;
     });
-    this.$gaService.event('total_value', 'cart', this.valorTotal.toString());
+    this.$gaService.gtag('total_value', 'cart', 'Total Value', this.valorTotal.toString());
     // Process checkout data here
     this.items = this.cartService.clearCart();
     console.warn('Your order has been submitted', this.checkoutForm.value);
