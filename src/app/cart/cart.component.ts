@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
 
 import { CartService } from '../cart.service';
 
@@ -14,12 +15,19 @@ export class CartComponent {
     name: '',
     address: ''
   });
+  valorTotal = 0;
   constructor(
     private cartService: CartService,
     private formBuilder: FormBuilder,
+    private $gaService: GoogleAnalyticsService
     ) {}
 
   onSubmit(): void {
+    this.items.forEach(element => {
+      this.$gaService.event('product_bought', 'cart', element.name);
+      this.valorTotal = this.valorTotal + element.price;
+    });
+    this.$gaService.event('total_value', 'cart', this.valorTotal.toString());
     // Process checkout data here
     this.items = this.cartService.clearCart();
     console.warn('Your order has been submitted', this.checkoutForm.value);

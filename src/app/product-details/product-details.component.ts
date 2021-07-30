@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { Product, products } from '../products';
 import { CartService } from '../cart.service';
+import { GoogleAnalyticsService } from 'ngx-google-analytics';
 
 @Component({
   selector: 'app-product-details',
@@ -14,7 +15,8 @@ export class ProductDetailsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private cartService: CartService
+    private cartService: CartService,
+    private $gaService: GoogleAnalyticsService
   ) { }
 
   ngOnInit() {
@@ -28,6 +30,7 @@ export class ProductDetailsComponent implements OnInit {
 
   addToCart(product: Product) {
     this.cartService.addToCart(product);
+    this.$gaService.event('product_add_to_cart', 'product_details', product.name);
     window.alert('Your product has been added to the cart!');
   }
 }
