@@ -14,12 +14,20 @@ export class ProductListComponent {
   constructor(private $gaService: GoogleAnalyticsService) {}
 
   share() {
-    this.$gaService.event('shared_product', 'product-list');
+    try {
+      this.$gaService.event('shared_product', 'product-list');
+    } catch (error) {
+      console.log(error);
+    }
     window.alert('The product has been shared!');
   }
 
   onNotify() {
-    this.$gaService.event('notify_product', 'product-list');
+    try {
+      this.$gaService.event('notify_product', 'product-list');
+    } catch (error) {
+      console.log(error);
+    }
     window.alert('You will be notified when the product goes on sale');
   }
 }

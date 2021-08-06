@@ -24,10 +24,18 @@ export class CartComponent {
 
   onSubmit(): void {
     this.items.forEach(element => {
-      this.$gaService.gtag('product_bought', 'cart', 'Product Bought', element.name);
+      try {
+        this.$gaService.gtag('product_bought', 'cart', 'Product Bought', element.name);
+      } catch (error) {
+        console.log(error);
+      }
       this.valorTotal = this.valorTotal + element.price;
     });
-    this.$gaService.gtag('total_value', 'cart', 'Total Value', this.valorTotal.toString());
+    try {
+      this.$gaService.gtag('total_value', 'cart', 'Total Value', this.valorTotal.toString());
+    } catch (error) {
+      console.log(error);
+    }
     // Process checkout data here
     this.items = this.cartService.clearCart();
     console.warn('Your order has been submitted', this.checkoutForm.value);
